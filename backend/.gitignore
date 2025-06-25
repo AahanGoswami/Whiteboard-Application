@@ -1,0 +1,129 @@
+#A gitignore file for Node js project,that also ignores .DS_Store in every subfolder
+
+# === Node.js ===
+
+# Dependency directories
+node_modules/
+.pnpm/
+.npm/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Binaries
+*.exe
+*.out
+*.app
+
+# === Build ===
+
+# Build output
+dist/
+build/
+tmp/
+temp/
+.cache/
+.next/
+out/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+
+# Parcel
+.cache/
+.parcel-cache/
+
+# PM2 logs
+pids/
+*.pid
+*.log
+
+# === IDEs and Editors ===
+
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Sublime
+*.sublime*
+
+# Other editors
+*.swp
+*.swo
+
+# === OS Specific ===
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# === Miscellaneous ===
+
+# REPL history
+.node_repl_history
+
+# dotenv override
+.env.override
+
+# Optional lock files (choose depending on what you use)
+package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ESLint / Stylelint / Prettier caches
+.eslintcache
+.stylelintcache
+
+# Firebase
+.firebase/
+
+# Local testing
+test-output/
+test-results/
+
+# Swagger generated files
+swagger.json
+swagger.yaml
+
+# Storybook
+.storybook-out/
+
+# Git hooks
+.husky/
