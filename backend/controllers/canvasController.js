@@ -80,36 +80,29 @@ const deleteCanvas = async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            console.log('User not found:', email);
             return res.status(404).json({ message: 'User not found' });
         }
 
         const canvas = await Canvas.findById(id);
         if (!canvas) {
-            console.log('Canvas not found:', id);
             return res.status(404).json({ message: 'Canvas not found' });
         }
 
         // If owner, delete from DB
         if (canvas.owner.toString() === user._id.toString()) {
             await Canvas.findByIdAndDelete(id);
-            console.log('Canvas deleted by owner:', id);
-            return res.status(200).json({ message: 'Canvas deleted' });
+            return res.status(200).json({ message: 'Canvas deleted from database (owner)' });
         }
 
-        // If shared, remove user from shared_with
+        // If shared user, just return success (do not modify DB)
         const wasShared = canvas.shared_with.map(uid => uid.toString()).includes(user._id.toString());
         if (wasShared) {
-            canvas.shared_with = canvas.shared_with.filter(uid => uid.toString() !== user._id.toString());
-            await canvas.save();
-            console.log('User removed from shared canvases:', email, id);
-            return res.status(200).json({ message: 'Removed from shared canvases' });
+            return res.status(200).json({ message: 'Canvas removed from your view (shared user)' });
         }
 
-        console.log('Not authorized:', email, id);
-        return res.status(403).json({ message: 'Not authorized to delete this canvas' });
+        // If neither owner nor shared, still return success (frontend-only removal)
+        return res.status(200).json({ message: 'Canvas removed from your view' });
     } catch (error) {
-        console.log('Error in deleteCanvas:', error);
         res.status(400).json({ message: error.message });
     }
 };
