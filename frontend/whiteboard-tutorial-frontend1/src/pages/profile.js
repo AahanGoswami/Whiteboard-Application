@@ -147,7 +147,7 @@ function Profile() {
   const handleDeleteCanvas = async (canvasId) => {
     if (!window.confirm('Are you sure you want to delete this canvas?')) return;
     try {
-      const response = await fetch(`http://localhost:3031/api/canvas/${canvasId}`, {
+      const response = await fetch(`https://whiteboard-application-1.onrender.com/api/canvas/${canvasId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
