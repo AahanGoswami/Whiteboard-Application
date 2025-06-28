@@ -27,7 +27,7 @@ function CanvasPage() {
       }
 
       try {
-        const response = await fetch(`http://localhost:3031/api/canvas/load/${id}`, {
+        const response = await fetch(`https://whiteboard-application-1.onrender.com/api/canvas/load/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -62,7 +62,7 @@ function CanvasPage() {
       socketRef.current.disconnect();
     }
 
-    socketRef.current = io('http://localhost:3031', {
+    socketRef.current = io('https://whiteboard-application-1.onrender.com', {
       auth: { token }
     });
 

@@ -1,6 +1,6 @@
 
 
-const API_BASE_URL = 'http://localhost:3031/api/canvas';
+const API_BASE_URL = 'https://whiteboard-application-1.onrender.com/api/canvas';
 
 export const updateCanvas = async (id, elements) => {
     try {
