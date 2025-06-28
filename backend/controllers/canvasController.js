@@ -73,21 +73,27 @@ const shareCanvas = async (req, res) => {
     }
 };
 
-// DELETE canvas logic
 const deleteCanvas = async (req, res) => {
     const email = req.email;
     const id = req.params.id;
 
     try {
         const user = await User.findOne({ email });
-        if (!user) return res.status(404).json({ message: 'User not found' });
+        if (!user) {
+            console.log('User not found:', email);
+            return res.status(404).json({ message: 'User not found' });
+        }
 
         const canvas = await Canvas.findById(id);
-        if (!canvas) return res.status(404).json({ message: 'Canvas not found' });
+        if (!canvas) {
+            console.log('Canvas not found:', id);
+            return res.status(404).json({ message: 'Canvas not found' });
+        }
 
         // If owner, delete from DB
         if (canvas.owner.toString() === user._id.toString()) {
             await Canvas.findByIdAndDelete(id);
+            console.log('Canvas deleted by owner:', id);
             return res.status(200).json({ message: 'Canvas deleted' });
         }
 
@@ -96,11 +102,14 @@ const deleteCanvas = async (req, res) => {
         if (wasShared) {
             canvas.shared_with = canvas.shared_with.filter(uid => uid.toString() !== user._id.toString());
             await canvas.save();
+            console.log('User removed from shared canvases:', email, id);
             return res.status(200).json({ message: 'Removed from shared canvases' });
         }
 
+        console.log('Not authorized:', email, id);
         return res.status(403).json({ message: 'Not authorized to delete this canvas' });
     } catch (error) {
+        console.log('Error in deleteCanvas:', error);
         res.status(400).json({ message: error.message });
     }
 };
