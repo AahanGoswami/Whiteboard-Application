@@ -13,6 +13,7 @@ function Profile() {
   const socketRef = useRef(null);
 
   const token = localStorage.getItem('token');
+  const API_URL = 'https://whiteboard-application-1.onrender.com';
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -22,7 +23,7 @@ function Profile() {
       }
 
       try {
-        const response = await fetch('https://whiteboard-application-1.onrender.com/api/users/profile', {
+        const response = await fetch(`${API_URL}/api/users/profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -47,7 +48,7 @@ function Profile() {
 
   const fetchCanvases = useCallback(async () => {
     try {
-      const response = await fetch('https://whiteboard-application-1.onrender.com/api/canvas', {
+      const response = await fetch(`${API_URL}/api/canvas`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -82,7 +83,7 @@ function Profile() {
     if (!newCanvasName.trim()) return;
 
     try {
-      const response = await fetch('https://whiteboard-application-1.onrender.com/api/canvas', {
+      const response = await fetch(`${API_URL}/api/canvas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,8 +109,6 @@ function Profile() {
   };
 
   const handleShareCanvas = async (canvasId) => {
-    const token = localStorage.getItem('token');
-
     if (!shareEmail.trim()) {
       setCriticalShareError('Please enter an email.');
       return;
@@ -121,7 +120,7 @@ function Profile() {
     }
 
     try {
-      const response = await fetch(`https://whiteboard-application-1.onrender.com/api/canvas/share/${canvasId}`, {
+      const response = await fetch(`${API_URL}/api/canvas/share/${canvasId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +146,7 @@ function Profile() {
   const handleDeleteCanvas = async (canvasId) => {
     if (!window.confirm('Are you sure you want to delete this canvas?')) return;
     try {
-      const response = await fetch(`https://whiteboard-application-1.onrender.com/api/canvas/${canvasId}`, {
+      const response = await fetch(`${API_URL}/api/canvas/${canvasId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
