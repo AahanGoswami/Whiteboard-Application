@@ -102,7 +102,7 @@ const deleteCanvas = async (req, res) => {
 
         // If neither owner nor shared, still return success (frontend-only removal)
         return res.status(200).json({ message: 'Canvas removed from your view' });
-    } catch (error) {
+    } catch (error) { 
         res.status(400).json({ message: error.message });
     }
 };
